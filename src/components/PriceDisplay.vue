@@ -1,7 +1,7 @@
 <template>
     <div v-if="this.$store.state.selectedCoin">
         <h2>Price Display Component</h2>
-        <p class="price-container">Current {{this.$store.state.selectedCoin}} Price: $<span class="price-tag">{{this.$store.state.currentPrice}}</span> AUD</p>
+        <p class="price-container">Current {{this.$store.state.selectedCoin}} Price: $ {{this.$store.state.currentPrice}} AUD  {{priceChange}}</p>
     </div>
 </template>
 
@@ -9,42 +9,38 @@
 import axios from 'axios';
 export default {
     name: 'PriceDisplay',
+    data: function() {
+        return{
+            priceChange: '',
+        }
+    },
     methods:{
-        getPrice (coinType){
-            let price;
+        updatePrice (coinType){
             axios
                 .get('https://trade.cointree.com/api/prices/aud/'+ coinType)
                 .then(response => {
-                    price = response.data.ask;
-                    this.savePrice(coinType, price);
-                    console.log('price is ' + price);
+                    this.$store.state.currentPrice = response.data.ask;
+                    this.priceChange = this.checkPriceChange(coinType, response.data.ask);
+                    this.savePrice(coinType, response.data.ask);
                     })
                 .catch(error => console.log(error))
-            return price;
         },
         savePrice (coinType, price){
-            switch (coinType){
-                case "BTC":
-                    localStorage.BTCPrice = price;
-                    console.log('BTC PRICE SAVED AS: ' + price);
-                    break;    
-                case "ETH":
-                    localStorage.ETHPrice = price;
-                    console.log('ETH PRICE SAVED AS: ' + price)
-                    break;   
-                case "XRP":
-                    localStorage.XRPPrice = price;
-                    console.log('XRP PRICE SAVED AS: ' + price)
-                    break;
-                default:
-                    console.log("no type match")
+            localStorage.setItem((coinType + 'Price'), price);
+            console.log(coinType + ' price saved as: ' + price);
+        },
+        checkPriceChange(coinType, currentPrice) {
+            if (localStorage.getItem(coinType+'Price')){
+                let previousPrice = localStorage.getItem(coinType+'Price');
+                return (currentPrice - previousPrice)/previousPrice;
+            } else {
+                return("no previous price");
             }
         }
     },
     watch: {
-        '$store.state.selectedCoin': async function() {
-            this.$store.state.currentPrice = await this.getPrice(this.$store.state.selectedCoin)
-            console.log('logging stored price: ' + this.$store.state.currentPrice)
+        '$store.state.selectedCoin': function() {
+            this.updatePrice(this.$store.state.selectedCoin);
         }
     }
 }
@@ -52,10 +48,7 @@ export default {
 
 <style scoped>
     .price-container{
-        font-size: 16px;
+        font-size: 20px;
         color: #555;
-    }
-    .price-tag{
-        color: red;
     }
 </style>

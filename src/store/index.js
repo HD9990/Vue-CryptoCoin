@@ -6,7 +6,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         selectedCoin: '',
-        currentPrice: Number,
+        currentPrice: '',
     },
     getters: {},
     mutations: {},
