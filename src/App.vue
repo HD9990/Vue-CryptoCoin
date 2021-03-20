@@ -1,17 +1,23 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <img alt="Vue logo" src="./assets/cointree-logo-primary.png">
+    <HelloWorld msg="Welcome to Cointree miniapp"/>
+    <CoinSelector />
+    <PriceDisplay />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import HelloWorld from './components/HelloWorld';
+import CoinSelector from './components/CoinSelector';
+import PriceDisplay from './components/PriceDisplay'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    HelloWorld, 
+    CoinSelector,
+    PriceDisplay
   }
 }
 </script>
