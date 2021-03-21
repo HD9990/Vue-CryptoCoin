@@ -2,12 +2,12 @@
 <div id="CoinSelector">
     <h1>Select your coin</h1>
     <select v-on:change="savePreference">
-        <option id="placeholder" value="none" disabled hidden>
-            Choose your preferred coin
+        <option :selected="!this.$store.state.selectedCoin" value="none" disabled hidden>
+            Choose your preferred coin  
         </option>
-        <option id="BTC" value="BTC">BTC</option>
-        <option id="ETH" value="ETH">ETH</option>
-        <option id="XRP" value="XRP">XRP</option>
+        <option :selected="this.$store.state.selectedCoin == 'BTC'" value="BTC">BTC</option>
+        <option :selected="this.$store.state.selectedCoin == 'ETH'" value="ETH">ETH</option>
+        <option :selected="this.$store.state.selectedCoin == 'XRP'" value="XRP">XRP</option>
     </select>
 </div>
 </template>
@@ -15,25 +15,14 @@
 <script>
 export default {
     name: 'CoinSelector',
-    data: function() {
-        return{
-        savedCoin: String,
-        }
-    },
     methods: {
         savePreference: function (event) {
             this.$store.state.selectedCoin = event.target.value;
-            localStorage.setItem(this.savedCoin, event.target.value);
+            localStorage.setItem('preferredCoin', event.target.value);
         }
     },
     mounted() {
-        let coin = localStorage.getItem(this.savedCoin);
-        if (coin) {
-            document.getElementById(coin).setAttribute('selected', true);
-            this.$store.state.selectedCoin = coin;
-        } else {
-            document.getElementById("placeholder").setAttribute('selected', true);
-        }
+        this.$store.state.selectedCoin = localStorage.getItem('preferredCoin');
     },
 };
 </script>

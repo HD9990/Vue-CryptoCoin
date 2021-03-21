@@ -40,7 +40,9 @@ export default {
     },
     watch: {
         '$store.state.selectedCoin': function() {
-            this.updatePrice(this.$store.state.selectedCoin);
+            if(this.$store.state.selectedCoin){
+                this.updatePrice(this.$store.state.selectedCoin);
+            }
         }
     },
     filters: {

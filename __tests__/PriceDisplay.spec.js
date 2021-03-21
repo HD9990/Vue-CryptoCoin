@@ -6,10 +6,3 @@ describe('PriceDisplay.vue', () => {
         expect(typeof PriceDisplay.data).toBe('function')
     })
 });
-
-// describe('Mounted PriceDisplay', () => {
-//     const wrapper = mount(PriceDisplay);
-//     test('is a Vue instance', () => {
-//         expect(wrapper.isVueInstance()).toBeTruthy()
-//     })
-// })

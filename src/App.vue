@@ -11,11 +11,11 @@ import CoinSelector from './components/CoinSelector';
 import PriceDisplay from './components/PriceDisplay';
 
 export default {
-    name: 'App',
-    components: { 
-        CoinSelector,
-        PriceDisplay
-    }
+  name: 'App',
+  components: { 
+      CoinSelector,
+      PriceDisplay
+  }
 }
 </script>
 
