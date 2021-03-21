@@ -1,7 +1,7 @@
 <template>
 <div id="CoinSelector">
     <h1>Select your coin</h1>
-    <select id="coinSelector" v-on:change="savePreference">
+    <select v-on:change="savePreference">
         <option id="placeholder" value="none" disabled hidden>
             Choose your preferred coin
         </option>
@@ -23,17 +23,17 @@ export default {
     methods: {
         savePreference: function (event) {
             this.$store.state.selectedCoin = event.target.value;
-            localStorage.savedCoin = event.target.value;
+            localStorage.setItem(this.savedCoin, event.target.value);
             console.log(localStorage.savedCoin + ' saved to local stroage.');
         }
     },
     mounted() {
-        console.log('from coin select ' + this.$store.state.coin);
-        if (localStorage.savedCoin) {
-            document.getElementById(localStorage.savedCoin).selected = true;
-            this.$store.state.selectedCoin = localStorage.savedCoin
+        let coin = localStorage.getItem(this.savedCoin);
+        if (coin) {
+            document.getElementById(coin).setAttribute('selected', true);
+            this.$store.state.selectedCoin = coin;
         } else {
-            document.getElementById("placeholder").selected = true;
+            document.getElementById("placeholder").setAttribute('selected', true);
         }
     },
 };

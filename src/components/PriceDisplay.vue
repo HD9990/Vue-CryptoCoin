@@ -1,7 +1,7 @@
 <template>
     <div v-if="this.$store.state.selectedCoin">
         <h2>Price Display Component</h2>
-        <p class="price-container">Current {{this.$store.state.selectedCoin}} Price: $ {{this.$store.state.currentPrice}} AUD</p>
+        <p class="price-container">Current {{this.$store.state.selectedCoin}} Price: $ {{this.$store.state.currentPrice | fourDecimal}} AUD</p>
         <p v-if="priceChange">Change from last search: {{priceChange | percentage}}</p>
     </div>
 </template>
@@ -47,13 +47,16 @@ export default {
     filters: {
         percentage: function (value) {
             if (!value) {
-                return ''
+                return '';
             }
             value = value * 100;
             value = Math.round(value * Math.pow(10, 5)) / Math.pow(10, 5);
             value = value + '%';
             return value;
-        }
+        },
+        fourDecimal: function (value) {
+            return parseFloat(value).toFixed(4)
+        },
     }
 }
 </script>
