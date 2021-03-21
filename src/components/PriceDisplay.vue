@@ -28,7 +28,6 @@ export default {
         },
         savePrice (coinType, price){
             localStorage.setItem((coinType + 'Price'), price);
-            console.log(coinType + ' price saved as: ' + price);
         },
         checkPriceChange(coinType, currentPrice) {
             if (localStorage.getItem(coinType+'Price')){
@@ -46,16 +45,14 @@ export default {
     },
     filters: {
         percentage: function (value) {
-            if (!value) {
-                return '';
-            }
-            value = value * 100;
-            value = Math.round(value * Math.pow(10, 5)) / Math.pow(10, 5);
-            value = value + '%';
-            return value;
+            let formattedValue;
+            if (!value) { return ''}
+            formattedValue = (Math.round(value * 100 * Math.pow(10, 5)) / Math.pow(10, 5)) + '%';
+            return formattedValue;
         },
         fourDecimal: function (value) {
-            return parseFloat(value).toFixed(4)
+            let formattedValue = parseFloat(value).toFixed(4);
+            return formattedValue;
         },
     }
 }

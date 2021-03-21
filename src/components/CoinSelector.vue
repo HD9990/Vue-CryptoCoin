@@ -24,7 +24,6 @@ export default {
         savePreference: function (event) {
             this.$store.state.selectedCoin = event.target.value;
             localStorage.setItem(this.savedCoin, event.target.value);
-            console.log(localStorage.savedCoin + ' saved to local stroage.');
         }
     },
     mounted() {
