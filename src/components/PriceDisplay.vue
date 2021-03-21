@@ -24,7 +24,7 @@ export default {
                     this.priceChange = this.checkPriceChange(coinType, response.data.ask);
                     this.savePrice(coinType, response.data.ask);
                     })
-                .catch(error => console.log(error))
+                .catch(error => (console.log(error), alert("Please check your internet connection and try again later.")))
         },
         savePrice (coinType, price){
             localStorage.setItem((coinType + 'Price'), price);
