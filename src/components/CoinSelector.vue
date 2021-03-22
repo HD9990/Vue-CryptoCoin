@@ -14,16 +14,16 @@
 
 <script>
 export default {
-    name: 'CoinSelector',
-    methods: {
-        savePreference: function (event) {
-            this.$store.state.selectedCoin = event.target.value;
-            localStorage.setItem('preferredCoin', event.target.value);
-        }
-    },
-    mounted() {
-        this.$store.state.selectedCoin = localStorage.getItem('preferredCoin');
-    },
+	name: 'CoinSelector',
+	methods: {
+		savePreference: function (event) {
+			this.$store.state.selectedCoin = event.target.value;
+			localStorage.setItem('preferredCoin', event.target.value);
+		}
+	},
+	mounted() {
+		this.$store.state.selectedCoin = localStorage.getItem('preferredCoin');
+	},
 };
 </script>
 
